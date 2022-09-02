@@ -11,6 +11,7 @@
 <body class="bg-light">
     
     <header class="container">
+        <!-- navigation bar -->
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
                 <a title="website-branding" class="navbar-brand ff-oswold lh-0" href="#">
@@ -31,12 +32,14 @@
                             </li>
                         </ul>
                     </div>
-                    <img class="rounded-5 border border-3 border-primary ms-4" height="50px" width="50px" src="./images/mahmud.jpg" alt="Abdullah Al Mahmud">
+                    <img class="rounded-5 border border-3 border-info ms-4" height="50px" width="50px" src="./images/mahmud.jpg" alt="Abdullah Al Mahmud">
                 </div>
             </div>
         </nav>
         <hr class="m-0">
-        <div class="d-flex justify-content-center ff-poppins py-2">
+
+        <!-- catagroy section -->
+        <div class="d-flex justify-content-center ff-poppins py-3">
             <ul class="nav">
                 <li class="nav-item">
                     <a class="nav-link active text-muted" aria-current="page" href="#">Home</a>
@@ -67,7 +70,34 @@
                 </li>
             </ul>
         </div>
+        <!-- loaded news/contents number show -->
+        <div class="alert alert-info" role="alert">
+            4 items found for category Entertainment
+        </div>
     </header>
+    <main class="container">
+        <section>
+            <div class="row">
+                <div class="col-6 d-flex">
+                    <p class="text-dark lh-lg pe-3">Short By View:</p>
+                    <div class="dropdown">
+                        <button class="btn btn-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Default
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Option-1</a></li>
+                            <li><a class="dropdown-item" href="#">Option-2</a></li>
+                            <li><a class="dropdown-item" href="#">Option-3</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-6 d-flex justify-content-end">
+                    <button class="btn btn-sm btn-info px-3 ms-3">Todays Pick</button>
+                    <button class="btn btn-sm btn-outline-info px-3 ms-3">Trending</button>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
     <!-- hero news app js -->
