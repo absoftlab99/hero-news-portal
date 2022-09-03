@@ -11,7 +11,10 @@
     function getCategory() {
         fetch('https://openapi.programming-hero.com/api/news/categories')
             .then((respons) => respons.json())
-            .then((data) => displayCategorys(data.data.news_category));
+            .then((data) => displayCategorys(data.data.news_category))
+            .catch((error) => {
+                console.log(error)
+            });
     }
 
 getCategory();
@@ -33,7 +36,10 @@ const displayCategorys = categories => {
         toggleSpinner(true);
         fetch(`https://openapi.programming-hero.com/api/news/category/${categoryId}`)
             .then((respons) => respons.json())
-            .then((data) => displayNews(data.data));        
+            .then((data) => displayNews(data.data))
+            .catch((error) => {
+                console.log(error)
+            });        
             btnActive(categoryId);
     }
     const displayNews = (newses) =>{
@@ -43,6 +49,7 @@ const displayCategorys = categories => {
         newsNo.innerText = newses.length;
         newses.forEach(news => {
             const article = document.createElement('article');
+            // const modalBody = document.createElement('modal-body');
             article.innerHTML = `
             <div class="row bg-white border shadow-lg rounded-4 mt-3">
             <div class="col-md-3 col-sm-12 px-3 py-3">
@@ -58,13 +65,13 @@ const displayCategorys = categories => {
                                 <img class="rounded-5 border border-1 border-dark" height="45px" width="45px" src="${news.author.img}" alt="">
                             </div>
                             <div class="col-9 p-0">
-                                <p class="text-darl m-0 fw-bolder">${news.author.name}</p>
+                                <p class="text-darl m-0 fw-bolder">${news.author.name ? news.author.name : 'No Author Found'}</p>
                                 <p class="text-muted m-0">${news.author.published_date}</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-2 col-sm-4">
-                        <p class="p-3 m-0 ff-poppins"><i class="fa-solid fa-eye"></i> ${news.total_view}</p>
+                        <p class="p-3 m-0 ff-poppins"><i class="fa-solid fa-eye"></i> ${news.total_view ? news.total_view : '0'}</p>
                     </div>
                     <div class="col-3 d-none d-md-block">
                         <p class="p-3 text-warning">
@@ -75,8 +82,8 @@ const displayCategorys = categories => {
                             <i class="fa-regular fa-star"></i>
                         </p>
                     </div>
-                    <div class="col-md-2">
-                        <p class="text-dark text-end p-3 pe-5"><i class="fa-solid fa-arrow-right"></i></p>
+                    <div class="col-md-2 p-3 pe-2">
+                        <a onclick="modalCall('${news._id}')" href="" data-bs-toggle="modal" data-bs-target="#news-details" class="text-dark text-end"><i class="fa-solid fa-arrow-right"></i></a>
                     </div>
                 </div>
                 </div>
@@ -98,4 +105,52 @@ const displayCategorys = categories => {
             spinner.classList.add('d-none');
             console.log('spinner disabled');
         }
+    }
+
+    const modalCall = (newsId) =>{
+        const detailsUrl = `https://openapi.programming-hero.com/api/news/${newsId}`;
+        fetch(detailsUrl)
+        .then((respons) => respons.json())
+        .then((data) => displayModal(data.data[0]));
+
+    }
+
+    const displayModal = (details) =>{
+        console.log(details.title);
+        const modalContent = document.getElementById('modalBody');
+        modalContent.innerHTML =`
+        <div class="row bg-white border shadow-lg rounded-4 mt-3">
+        <div class="col-md-3 col-sm-12 px-3 py-3">
+            <img class="rounded-4 img-fluid" height="300px" width="244px" src="${details.thumbnail_url}" alt="">
+        </div>
+        <div class="col-md-9 col-sm-12  px-2 pt-4">
+            <h4 class="ff-oswold">${details.title}</h4>
+            <p class="text-justify ff-poppins text-muted lh-lg pe-4">${details.details}</p>
+            <div class="row d-flex">
+                <div class="col-md-5 col-sm-4">
+                    <div class="row">
+                        <div class="col-3">
+                            <img class="rounded-5 border border-1 border-dark" height="45px" width="45px" src="${details.author.img}" alt="">
+                        </div>
+                        <div class="col-9 p-0">
+                            <p class="text-darl m-0 fw-bolder">${details.author.name}</p>
+                            <p class="text-muted m-0">${details.author.published_date}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-4">
+                    <p class="p-3 m-0 ff-poppins"><i class="fa-solid fa-eye"></i> ${details.total_view}</p>
+                </div>
+                <div class="col-3 d-none d-md-block">
+                    <p class="p-3 text-warning">
+                        <i class="fa-solid fa-star-half-stroke"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                    </p>
+                </div>
+            </div>
+            </div>
+        </div>`;
     }
