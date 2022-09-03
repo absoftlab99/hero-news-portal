@@ -42,6 +42,7 @@ const displayCategorys = categories => {
             });        
             btnActive(categoryId);
     }
+    
     const displayNews = (newses) =>{
         const newsAria = document.getElementById('news');
         newsAria.innerHTML = '';
