@@ -1,12 +1,13 @@
-    const btnActive = (categoryId) =>{        
+    const btnActive = (cateId) =>{        
         const allCategories = document.querySelectorAll('.allcategories');
         for(const category of allCategories){
             category.classList.remove('actives');
         }
-        const selectedBtn = document.getElementById(`cate${categoryId}`);
+        const selectedBtn = document.getElementById(`cate${cateId}`);
         selectedBtn.classList.add('actives');
     }
 
+    //get category function
     function getCategory() {
         fetch('https://openapi.programming-hero.com/api/news/categories')
             .then((respons) => respons.json())
@@ -17,7 +18,6 @@ getCategory();
 
 const displayCategorys = categories => {
     const categroyList = document.getElementById('categroy-list');
-    
     for (const category of categories) {
         const categoryItem = document.createElement('li');
         categoryItem.classList.add('nav-item');
@@ -25,22 +25,23 @@ const displayCategorys = categories => {
         categoryItem.innerHTML = `<a onclick="getNewsByCatagory('${category.category_id}')" class="nav-link text-muted allcategories" href="#" id="cate${category.category_id}">${category.category_name}</a>`;
         categroyList.appendChild(categoryItem);
 }
+    getNewsByCatagory();
 }
 
     function getNewsByCatagory(categoryId = '01') {
+        //loader start
+        toggleSpinner(true);
         fetch(`https://openapi.programming-hero.com/api/news/category/${categoryId}`)
             .then((respons) => respons.json())
-            .then((data) => displayNews(data.data));
+            .then((data) => displayNews(data.data));        
             btnActive(categoryId);
     }
-
     const displayNews = (newses) =>{
         const newsAria = document.getElementById('news');
         newsAria.innerHTML = '';
         const newsNo = document.getElementById('news-number');
         newsNo.innerText = newses.length;
-        for(const news of newses){
-            console.log(news);
+        newses.forEach(news => {
             const article = document.createElement('article');
             article.innerHTML = `
             <div class="row bg-white border shadow-lg rounded-4 mt-3">
@@ -81,5 +82,20 @@ const displayCategorys = categories => {
                 </div>
             </div>`;
             newsAria.appendChild(article);
+        });
+        toggleSpinner(false);
+    }
+
+    //spinner function
+    const toggleSpinner = (isloading) =>{
+        console.log(isloading);
+        const spinner = document.getElementById('spinner');
+        if(isloading === true){
+            spinner.classList.remove('d-none');
+            console.log('spinner loaded');
+        }
+        else{
+            spinner.classList.add('d-none');
+            console.log('spinner disabled');
         }
     }
