@@ -89,10 +89,11 @@ const displayCategorys = categories => {
                 </div>
             </div>`;
             newsAria.appendChild(article);
+            toggleSpinner(false);
         });
-        toggleSpinner(false);
+
+        const noData = document.getElementById('no-data');
         if(newses.length === 0){
-            const noData = document.getElementById('no-data');
             noData.classList.remove('d-none');
         }
         else{
