@@ -1,3 +1,12 @@
+    const btnActive = (categoryId) =>{        
+        const allCategories = document.querySelectorAll('.allcategories');
+        for(const category of allCategories){
+            category.classList.remove('actives');
+        }
+        const selectedBtn = document.getElementById(`cate${categoryId}`);
+        selectedBtn.classList.add('actives');
+    }
+
     function getCategory() {
         fetch('https://openapi.programming-hero.com/api/news/categories')
             .then((respons) => respons.json())
@@ -8,15 +17,12 @@ getCategory();
 
 const displayCategorys = categories => {
     const categroyList = document.getElementById('categroy-list');
+    
     for (const category of categories) {
         const categoryItem = document.createElement('li');
         categoryItem.classList.add('nav-item');
-    
-        categoryItem.innerHTML = category.category_id === '01'
-            ? `<a class="nav-link active-category bg-secondary rounded text-light" href="#">
-            ${category.category_name}</a>`
-            : `<a class="nav-link text-muted" href="#">
-            ${category.category_name}</a>`;
+
+        categoryItem.innerHTML = `<a onclick="getNewsByCatagory('${category.category_id}')" class="nav-link text-muted allcategories" href="#" id="cate${category.category_id}">${category.category_name}</a>`;
         categroyList.appendChild(categoryItem);
 }
 }
@@ -25,11 +31,14 @@ const displayCategorys = categories => {
         fetch(`https://openapi.programming-hero.com/api/news/category/${categoryId}`)
             .then((respons) => respons.json())
             .then((data) => displayNews(data.data));
+            btnActive(categoryId);
     }
-getNewsByCatagory();
 
     const displayNews = (newses) =>{
         const newsAria = document.getElementById('news');
+        newsAria.innerHTML = '';
+        const newsNo = document.getElementById('news-number');
+        newsNo.innerText = newses.length;
         for(const news of newses){
             console.log(news);
             const article = document.createElement('article');

@@ -47,8 +47,8 @@
             </ul>
         </div>
         <!-- loaded news/contents number show -->
-        <div class="alert alert-light" role="alert">
-            4 items found for category Entertainment
+        <div class="alert alert-dark" role="alert">
+            <span id="news-number">0</span> items found for category Entertainment
         </div>
     </header>
     <main class="container">
@@ -67,14 +67,21 @@
                     </div>
                 </div>
                 <div class="col-6 d-flex justify-content-end">
-                    <button type="button" class="btn btn-dark px-3 ms-3">Today's Pick</button>
-                    <button type="button" class="btn btn-outline-dark px-3 ms-3">Trending</button>
+                    <button onclick="todaysAndTrending()" type="button" class="btn btn-dark px-3 ms-3">Today's Pick</button>
+                    <button onclick="todaysAndTrending()" type="button" class="btn btn-outline-dark px-3 ms-3">Trending</button>
                 </div>
             </div>
         </section>
         <!-- articale/news section -->
         <section class="mt-5" id="news">
-            
+
+        </section>
+
+        <section>
+            <div class="d-none" id="no-data">
+                <img src="./images/animasi-emptystate.gif" alt="">
+                <h2>No Data Found</h2>
+            </div>
         </section>
     </main>
     <footer class="mt-4 bg-white p-4">
