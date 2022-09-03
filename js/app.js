@@ -95,15 +95,12 @@ const displayCategorys = categories => {
 
     //spinner function
     const toggleSpinner = (isloading) =>{
-        console.log(isloading);
         const spinner = document.getElementById('spinner');
         if(isloading === true){
             spinner.classList.remove('d-none');
-            console.log('spinner loaded');
         }
         else{
             spinner.classList.add('d-none');
-            console.log('spinner disabled');
         }
     }
 
@@ -111,12 +108,14 @@ const displayCategorys = categories => {
         const detailsUrl = `https://openapi.programming-hero.com/api/news/${newsId}`;
         fetch(detailsUrl)
         .then((respons) => respons.json())
-        .then((data) => displayModal(data.data[0]));
+        .then((data) => displayModal(data.data[0]))
+        .catch((error) => {
+            console.log(error)
+        });
 
     }
 
     const displayModal = (details) =>{
-        console.log(details.title);
         const modalContent = document.getElementById('modalBody');
         modalContent.innerHTML =`
         <div class="row bg-white border shadow-lg rounded-4 mt-3">
