@@ -133,13 +133,13 @@ const displayCategorys = categories => {
                             <img class="rounded-5 border border-1 border-dark" height="45px" width="45px" src="${details.author.img}" alt="">
                         </div>
                         <div class="col-9 p-0">
-                            <p class="text-darl m-0 fw-bolder">${details.author.name}</p>
+                            <p class="text-darl m-0 fw-bolder">${details.author.name ? details.author.name : 'Author Not Found'}</p>
                             <p class="text-muted m-0">${details.author.published_date}</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-4">
-                    <p class="p-3 m-0 ff-poppins"><i class="fa-solid fa-eye"></i> ${details.total_view}</p>
+                    <p class="p-3 m-0 ff-poppins"><i class="fa-solid fa-eye"></i> ${details.total_view ? details.total_view : '0'}</p>
                 </div>
                 <div class="col-3 d-none d-md-block">
                     <p class="p-3 text-warning">
