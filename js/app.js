@@ -50,7 +50,6 @@ const displayCategorys = categories => {
         newsNo.innerText = newses.length;
         newses.forEach(news => {
             const article = document.createElement('article');
-            // const modalBody = document.createElement('modal-body');
             article.innerHTML = `
             <div class="row bg-white border shadow-lg rounded-4 mt-3">
             <div class="col-md-3 col-sm-12 px-3 py-3">
@@ -92,6 +91,13 @@ const displayCategorys = categories => {
             newsAria.appendChild(article);
         });
         toggleSpinner(false);
+        if(newses.length === 0){
+            const noData = document.getElementById('no-data');
+            noData.classList.remove('d-none');
+        }
+        else{
+            noData.classList.add('d-none')
+        }
     }
 
     //spinner function
